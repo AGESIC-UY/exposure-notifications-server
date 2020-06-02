@@ -62,7 +62,7 @@ func Setup(ctx context.Context, config DBConfigProvider) (*serverenv.ServerEnv, 
 	// Can be changed with a different secret manager interface.
 	// TODO(mikehelmick): Make this extensible to other providers.
 	// TODO(sethvargo): Make TTL configurable.
-	sm, err := secrets.NewCacher(ctx, secrets.NewGCPSecretManager, 5*time.Minute)
+	sm, err := secrets.NewCacher(ctx, secrets.NewHashiCorpVault, 5*time.Minute)
 	if err != nil {
 		return nil, nil, fmt.Errorf("unable to connect to secret manager: %v", err)
 	}
@@ -80,7 +80,7 @@ func Setup(ctx context.Context, config DBConfigProvider) (*serverenv.ServerEnv, 
 
 	// TODO(mikehelmick): Make this extensible to other providers.
 	if _, ok := config.(KeyManagerProvider); ok {
-		km, err := signing.NewGCPKMS(ctx)
+		km, err := signing.NewLocalSigner()
 		if err != nil {
 			return nil, nil, fmt.Errorf("unable to connect to key manager: %w", err)
 		}

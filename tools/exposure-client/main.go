@@ -33,24 +33,19 @@ var (
 	url                  = flag.String("url", "http://localhost:8080", "http(s) destination to send test record")
 	numKeys              = flag.Int("num", 1, "number of keys to generate -num=1")
 	twice                = flag.Bool("twice", false, "send the same request twice w/ delay")
-	appPackage           = flag.String("app", "com.example.android.app", "AppPackageName to use in request")
-	regions              = flag.String("regions", "", "Comma separated region names")
+	appPackage           = flag.String("app", "uy.gub.salud.plancovid19uy", "AppPackageName to use in request")
+	regions              = flag.String("regions", "UY", "Comma separated region names")
 	authorityName        = flag.String("authority", "", "Verification Authority Name")
 	transmissionRiskFlag = flag.Int("transmissionRisk", -1, "Transmission risk")
 	// region settings for a key are assigned randomly
 	defaultRegions = [][]string{
-		{"US"},
-		{"US", "CA"},
-		{"US", "CA", "MX"},
-		{"CA"},
-		{"CA", "MX"},
+		{"UY"},
 	}
 
 	// verificationAuth for a key are assigned randomly
 	verificationAuthorityNames = []string{
 		"",
-		"AAA Health",
-		"BBB Labs",
+		"MSP UY",
 	}
 )
 

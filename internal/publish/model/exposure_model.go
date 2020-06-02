@@ -21,7 +21,8 @@ import (
 	"sort"
 	"strings"
 	"time"
-
+	"strconv"
+	"os"
 	"github.com/google/exposure-notifications-server/internal/base64util"
 )
 
@@ -222,11 +223,12 @@ func TransformExposureKey(exposureKey ExposureKey, appPackageName string, upcase
 	}
 
 	// Validate that the key is no longer effective.
-	if exposureKey.IntervalNumber+exposureKey.IntervalCount > maxIntervalNumber {
+	skip, _ := strconv.ParseBool(os.Getenv("SKIP_KEY_DATE_VALIDATION")); 
+	if !skip && exposureKey.IntervalNumber+exposureKey.IntervalCount > maxIntervalNumber {
 		return nil, fmt.Errorf("interval number %v + interval count %v represents a key that is still valid, must end <= %v",
 			exposureKey.IntervalNumber, exposureKey.IntervalCount, maxIntervalNumber)
 	}
-
+	
 	if tr := exposureKey.TransmissionRisk; tr < MinTransmissionRisk || tr > MaxTransmissionRisk {
 		return nil, fmt.Errorf("invalid transmission risk: %v, must be >= %v && <= %v", tr, MinTransmissionRisk, MaxTransmissionRisk)
 	}

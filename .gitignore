@@ -18,3 +18,5 @@ terraform.tfvars
 terraform/state.tf
 
 /local/
+init
+runLocal
