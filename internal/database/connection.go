@@ -103,7 +103,7 @@ func dbValues(config *Config) map[string]string {
 	setIfNotEmpty(p, "user", config.User)
 	setIfNotEmpty(p, "host", config.Host)
 	setIfNotEmpty(p, "port", config.Port)
-	setIfNotEmpty(p, "sslmode", "disable")
+	setIfNotEmpty(p, "sslmode", config.SSLMode)
 	setIfPositive(p, "connect_timeout", config.ConnectionTimeout)
 	setIfNotEmpty(p, "password", config.Password)
 	setIfNotEmpty(p, "sslcert", config.SSLCertPath)
